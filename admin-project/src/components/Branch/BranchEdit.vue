@@ -52,29 +52,31 @@
               </div>
               <div class="field my-3">
                 <label for="" class="form-label">course :</label>
+                <!-- <input type="text" v-model="branch.course.courseFullName" /> -->
                 <select class="form-control" v-model="course">
+                  <option>{{ courseFullName }}</option>
                   <option
-                    v-for="(br, index) in branch"
+                    v-for="(course, index) in courseList"
                     :key="index"
-                    :value="br._id"
+                    :value="course._id"
                   >
-                    {{ br.courseFullName }}
+                    {{ course.courseFullName }}
                   </option>
                 </select>
               </div>
             </div>
             <input
               type="submit"
-              value="Branch Create"
+              value="Branch Edit"
               class="btn btn-info my-3 w-100"
-              @click="branchCreate()"
+              @click="branchEdit(branch._id)"
             />
 
             <input
               type="submit"
               value="All Branch"
               class="btn btn-info my-3 w-100"
-              @click="allBranch()"
+              @click="getAllbranch()"
             />
           </div>
           <div class="col"></div>
@@ -92,6 +94,8 @@ export default {
   data() {
     return {
       branch: {},
+      courseList: [],
+      courseFullName: "",
     };
   },
 
@@ -114,7 +118,7 @@ export default {
       }
     },
 
-    async editbranch(id) {
+    async branchEdit(id) {
       let data = {
         branchCode: this.branch.branchCode,
         branchFullName: this.branch.branchFullName,
@@ -128,15 +132,18 @@ export default {
         data: data,
       });
       console.log(result);
+      this.getAllbranch();
     },
 
-    // async getAllbranch() {
-    //   let result = await axios({
-    //     method: "put",
-    //     url: "http://localhost:3000/branch/list/" + id,
-    //     data: data,
-    //   });
-    // },
+    async getAllbranch() {
+      let result = await axios({
+        method: "get",
+        url: "http://localhost:3000/branch/list/",
+        // data: data,
+      });
+
+      console.log(result);
+    },
 
     async getbranchData() {
       const route = useRoute();
@@ -149,6 +156,7 @@ export default {
       });
       console.log(result, "fetched user for db");
       this.branch = result.data.data;
+      this.courseFullName = this.branch.course.courseFullName;
     },
   },
 };

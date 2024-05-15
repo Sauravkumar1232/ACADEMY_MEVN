@@ -1,12 +1,25 @@
 <template>
   <html>
-    <head> </head>
+    <head>
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous"
+      />
+    </head>
     <body>
-      <!-- <h1>User List</h1>  -->
-
+      <h1>Branch List</h1>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter Branch"
+        v-model="listQuery.name"
+        @input="getBranchList()"
+      />
       <table class="table">
         <caption>
-          Branch List
+          <!-- Branch List -->
         </caption>
         <thead>
           <tr>
@@ -64,6 +77,9 @@ export default {
     return {
       branchList: {},
       courseFullName: "",
+      listQuery: {
+        name: "",
+      },
     };
   },
 
@@ -84,6 +100,7 @@ export default {
         let result = await axios({
           method: "get",
           url: "http://localhost:3000/branch/list",
+          params: this.listQuery,
         });
         console.log(result, "message");
         this.branchList = result.data.data;

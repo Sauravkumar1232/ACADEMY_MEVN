@@ -18,7 +18,9 @@ const createCourse = async (req, res) => {
 
 const getAllCourse = async (req, res) => {
   try {
-    let courses = await Course.find({}, "_id, courseFullName");
+    let courses = await Course.find({});
+    // let courses = await Course.find({}, "_id, courseFullName");
+
     res.status(200).send({
       message: "Course fetched",
       data: courses,

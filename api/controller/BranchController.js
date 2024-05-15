@@ -65,10 +65,15 @@ const getBranchForEdit = async (req, res) => {
 
 const getAllBranch = async (req, res) => {
   try {
-    let branches = await Branch.find({}).populate("course");
-    // branches.forEach(branch=>{
-    //   branch.branch
-    // })
+    console.log(req.query.name, "req.query.name");
+    let name = req.query.name;
+    // let branches = await Branch.find({}).populate("course");
+    let branches = await Branch.find({
+      branchFullName: { $regex: new RegExp(name.toLowerCase(), "i") }.populate(
+        "course"
+      ),
+    });
+
     res.status(200).send({
       message: "Branch fetched",
       data: branches,

@@ -2,17 +2,37 @@
   <div class="sidebar">
     <div class="title">Simple Sidebar</div>
     <div class="menu-items">
-      <router-link to="/" active-class="active" exact class="side-btn">
-        <div class="link-container">Overview</div>
+      <router-link
+        to="/course/Create"
+        active-class="active"
+        exact
+        class="side-btn"
+      >
+        <div class="link-container">Create Course</div>
       </router-link>
-      <router-link to="/messages" active-class="active" exact class="side-btn">
-        <div class="link-container">Messages</div>
+      <router-link
+        to="/course/list"
+        active-class="active"
+        exact
+        class="side-btn"
+      >
+        <div class="link-container">Course List</div>
       </router-link>
-      <router-link to="/profile" active-class="active" exact class="side-btn">
-        <div class="link-container">Profile</div>
+      <router-link
+        to="/branch/create"
+        active-class="active"
+        exact
+        class="side-btn"
+      >
+        <div class="link-container">Create Branch</div>
       </router-link>
-      <router-link to="/settings" active-class="active" exact class="side-btn">
-        <div class="link-container">Settings</div>
+      <router-link
+        to="/branch/list"
+        active-class="active"
+        exact
+        class="side-btn"
+      >
+        <div class="link-container">Branch List</div>
       </router-link>
     </div>
   </div>
