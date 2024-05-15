@@ -74,7 +74,7 @@ export default {
   methods: {
     async openEditPage(id) {
       console.log(id);
-      router.push({ path: "/courseEdit/" + id });
+      router.push({ path: "/branchEdit/" + id });
 
       // alert(id);
     },

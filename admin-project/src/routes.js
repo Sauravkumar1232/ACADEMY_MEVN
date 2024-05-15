@@ -9,9 +9,11 @@ const routes = [
     component: Dashboard,
     children: [
       {
-        path: "",
+        path: "/branch/create",
         component: () =>
-          import(/* webpackChunkName: "Overview" */ "./views/OverView.vue"),
+          import(
+            /* webpackChunkName: "Overview" */ "./components/Branch/BranchCreate.vue"
+          ),
       },
       {
         path: "messages",
@@ -60,6 +62,11 @@ const routes = [
     path: "/courseEdit/:id",
     name: "CourseEdit",
     component: () => import("./components/Course/CourseEdit"),
+  },
+  {
+    path: "/branchEdit/:id",
+    name: "BranchEdit",
+    component: () => import("./components/Branch/BranchEdit"),
   },
   {
     path: "/branch/create",

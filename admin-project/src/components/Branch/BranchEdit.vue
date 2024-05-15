@@ -14,7 +14,7 @@
     <body>
       <div class="container">
         <div class="alert bg-success my-3">
-          <h4 class="text-center" style="color: red">Branch Create</h4>
+          <h4 class="text-center" style="color: red">Branch Edit</h4>
         </div>
       </div>
 
@@ -25,36 +25,40 @@
             <!--either get or post-->
             <div class="field my-3">
               <label for="" class="form-label">branchCode Code:</label>
-              <input type="text" class="form-control" v-model="branchCode" />
+              <input
+                type="text"
+                class="form-control"
+                v-model="branch.branchCode"
+              />
             </div>
             <div class="field my-3">
               <label for="" class="form-label">Branch Full Name:</label>
               <input
                 type="text"
                 class="form-control"
-                v-model="branchFullName"
+                v-model="branch.branchFullName"
               />
             </div>
             <div class="field my-3">
               <!-- <label for="" class="form-label">mobno:</label>
-                  <input type="text" class="form-control" v-model="mobno" /> -->
+                    <input type="text" class="form-control" v-model="mobno" /> -->
               <div class="field my-3">
                 <label for="" class="form-label">Branch NickName:</label>
                 <input
                   type="text"
                   class="form-control"
-                  v-model="branchNickName"
+                  v-model="branch.branchNickName"
                 />
               </div>
               <div class="field my-3">
-                <label for="" class="form-label">Course :</label>
+                <label for="" class="form-label">course :</label>
                 <select class="form-control" v-model="course">
                   <option
-                    v-for="(course, index) in courseList"
+                    v-for="(br, index) in branch"
                     :key="index"
-                    :value="course._id"
+                    :value="br._id"
                   >
-                    {{ course.courseFullName }}
+                    {{ br.courseFullName }}
                   </option>
                 </select>
               </div>
@@ -79,28 +83,20 @@
     </body>
   </html>
 </template>
-
 <script>
-import router from "@/routes";
 import axios from "axios";
-
-// import axios from "axios";
-// import router from "@/router";
+import { useRoute } from "vue-router";
 
 export default {
-  name: "BranchCreate",
+  name: "UserEdit",
   data() {
     return {
-      branchCode: "",
-      branchFullName: "",
-      branchNickName: "",
-      // brachDuration: "",
-      courseList: [],
-      course: "",
+      branch: {},
     };
   },
 
   created() {
+    this.getbranchData();
     this.getCourseList();
   },
   methods: {
@@ -117,38 +113,45 @@ export default {
         console.log(err);
       }
     },
-    async branchCreate() {
-      try {
-        // alert("dfghjk");
-        let data = {
-          branchCode: this.branchCode,
-          branchFullName: this.branchFullName,
-          branchNickName: this.branchNickName,
-          brachDuration: this.brachDuration,
-          course: this.course,
-        };
-        let result = await axios({
-          method: "post",
-          url: "http://localhost:3000/branch/create",
-          data: data,
-        });
-        console.log(result, "message");
-        if (result.data.success) {
-          // router.push({ path: "./userList" });
-          router.push({ name: "BranchList" });
-        }
-      } catch (err) {
-        console.log(err);
-      }
+
+    async editbranch(id) {
+      let data = {
+        branchCode: this.branch.branchCode,
+        branchFullName: this.branch.branchFullName,
+        branchNickName: this.branch.branchNickName,
+        course: this.branch.course,
+      };
+
+      let result = await axios({
+        method: "put",
+        url: "http://localhost:3000/branch/edit/" + id,
+        data: data,
+      });
+      console.log(result);
     },
-    async allBranch() {
+
+    // async getAllbranch() {
+    //   let result = await axios({
+    //     method: "put",
+    //     url: "http://localhost:3000/branch/list/" + id,
+    //     data: data,
+    //   });
+    // },
+
+    async getbranchData() {
+      const route = useRoute();
+      let id = route.params.id;
+
+      console.log(id); //   let id = re;
       let result = await axios({
         method: "get",
-        url: "http://localhost:3000/branch/list",
+        url: "http://localhost:3000/branch/forEdit/" + id,
       });
-      router.push({ path: "BranchList" });
-      console.log(result, "Branch");
+      console.log(result, "fetched user for db");
+      this.branch = result.data.data;
     },
   },
 };
 </script>
+
+<style scoped></style>
