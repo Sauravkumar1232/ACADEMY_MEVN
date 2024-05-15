@@ -16,19 +16,30 @@ const routes = [
           ),
       },
       {
-        path: "messages",
+        path: "/branch/list",
         component: () =>
-          import(/* webpackChunkName: "Messages" */ "./views/MessAges.vue"),
+          import(
+            /* webpackChunkName: "Messages" */ "./components/Branch/BranchList.vue"
+          ),
       },
       {
-        path: "profile",
+        path: "/course/Create",
         component: () =>
-          import(/* webpackChunkName: "Profile" */ "./views/ProFile.vue"),
+          import(
+            /* webpackChunkName: "Profile" */ "./components/Course/CourseCreate.vue"
+          ),
       },
       {
-        path: "settings",
+        path: "/course/list",
         component: () =>
-          import(/* webpackChunkName: "Settings" */ "./views/SettIngs.vue"),
+          import(
+            /* webpackChunkName: "Settings" */ "./components/Course/CourseList.vue"
+          ),
+      },
+      {
+        path: "/courseEdit/:id",
+        name: "CourseEdit",
+        component: () => import("./components/Course/CourseEdit"),
       },
     ],
   },
@@ -48,21 +59,21 @@ const routes = [
     name: "CourseList",
     component: () => import("./components/Course/CourseList"),
   },
-  {
-    path: "/dashboard",
-    name: "CourseEx",
-    component: () => import("./components/Course/CourseEx"),
-  },
+  // {
+  //   path: "/dashboard",
+  //   name: "CourseEx",
+  //   component: () => import("./components/Course/CourseEx"),
+  // },
   // {
   //   path: "/courseList",
   //   name: "CourseList",
   //   component: () => import("./components/Course/CourseList"),
   // },
-  {
-    path: "/courseEdit/:id",
-    name: "CourseEdit",
-    component: () => import("./components/Course/CourseEdit"),
-  },
+  // {
+  //   path: "/courseEdit/:id",
+  //   name: "CourseEdit",
+  //   component: () => import("./components/Course/CourseEdit"),
+  // },
   {
     path: "/branchEdit/:id",
     name: "BranchEdit",

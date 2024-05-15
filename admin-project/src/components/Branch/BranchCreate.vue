@@ -141,13 +141,8 @@ export default {
         console.log(err);
       }
     },
-    async allBranch() {
-      let result = await axios({
-        method: "get",
-        url: "http://localhost:3000/branch/list",
-      });
-      router.push({ path: "BranchList" });
-      console.log(result, "Branch");
+    allBranch() {
+      router.push({ name: "BranchList" });
     },
   },
 };

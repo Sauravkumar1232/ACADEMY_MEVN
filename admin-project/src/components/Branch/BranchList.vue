@@ -113,10 +113,10 @@ export default {
         console.log(id);
         let result = await axios({
           method: "delete",
-          url: "http://localhost:3000/course/delete/" + id,
+          url: "http://localhost:3000/branch/delete/" + id,
         });
         console.log(result, " Deleted");
-        this.getCourseListList();
+        this.getBranchList();
       } catch (err) {
         console.log(err);
       }

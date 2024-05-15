@@ -10,6 +10,16 @@
       >
         <div class="link-container">Create Course</div>
       </router-link>
+
+      <!-- <router-link
+        to="/course/Create"
+        active-class="active"
+        exact
+        class="side-btn"
+      >
+        <div class="link-container">Course Edit</div> 
+      </router-link> -->
+
       <router-link
         to="/course/list"
         active-class="active"

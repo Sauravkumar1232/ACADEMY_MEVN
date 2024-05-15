@@ -65,24 +65,39 @@ const getBranchForEdit = async (req, res) => {
 
 const getAllBranch = async (req, res) => {
   try {
-    console.log(req.query.name, "req.query.name");
+    // console.log(req.query.name, "req.query.name");
     let name = req.query.name;
     // let branches = await Branch.find({}).populate("course");
     let branches = await Branch.find({
-      branchFullName: { $regex: new RegExp(name.toLowerCase(), "i") }.populate(
-        "course"
-      ),
-    });
-
+      branchFullName: { $regex: new RegExp(name.toLowerCase(), "i") },
+    }).populate("course");
+    console.log(branches, "branches");
     res.status(200).send({
       message: "Branch fetched",
       data: branches,
     });
-  } catch (err) {}
+  } catch (err) {
+    console.log(err.message, "msg");
+  }
+};
+const deleteBranch = async (req, res) => {
+  try {
+    await Branch.deleteOne({ _id: req.params.id });
+    res.status(200).send({
+      message: "Branch deleted",
+      data: "",
+    });
+  } catch (err) {
+    res.status(500).send({
+      success: true,
+      message: "Error ",
+      err,
+    });
+  }
 };
 module.exports = {
   createBranch,
-  // deletebranch,
+  deleteBranch,
   getAllBranch,
   // getbranchForEdit,
   getBranchForEdit,

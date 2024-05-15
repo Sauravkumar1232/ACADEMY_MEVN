@@ -53,8 +53,9 @@
               <div class="field my-3">
                 <label for="" class="form-label">course :</label>
                 <!-- <input type="text" v-model="branch.course.courseFullName" /> -->
-                <select class="form-control" v-model="course">
-                  <option>{{ courseFullName }}</option>
+                <select class="form-control" v-model="courseSelected">
+                  <option disabled value="">{{ courseFullName }}</option>
+                  <!-- <option>{{ courseFullName }}</option> -->
                   <option
                     v-for="(course, index) in courseList"
                     :key="index"
@@ -86,6 +87,7 @@
   </html>
 </template>
 <script>
+import router from "@/routes";
 import axios from "axios";
 import { useRoute } from "vue-router";
 
@@ -95,6 +97,7 @@ export default {
     return {
       branch: {},
       courseList: [],
+      courseSelected: "",
       courseFullName: "",
     };
   },
@@ -123,7 +126,7 @@ export default {
         branchCode: this.branch.branchCode,
         branchFullName: this.branch.branchFullName,
         branchNickName: this.branch.branchNickName,
-        course: this.branch.course,
+        course: this.courseSelected,
       };
 
       let result = await axios({
@@ -132,6 +135,9 @@ export default {
         data: data,
       });
       console.log(result);
+      if (result.data.success) {
+        router.push({ path: "/branch/list" });
+      }
       this.getAllbranch();
     },
 
@@ -157,6 +163,7 @@ export default {
       console.log(result, "fetched user for db");
       this.branch = result.data.data;
       this.courseFullName = this.branch.course.courseFullName;
+      console.log(this.branch.course.courseFullName, this.courseFullName);
     },
   },
 };

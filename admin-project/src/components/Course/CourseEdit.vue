@@ -101,6 +101,7 @@
   </html>
 </template>
 <script>
+import router from "@/routes";
 import axios from "axios";
 import { useRoute } from "vue-router";
 
@@ -137,15 +138,8 @@ export default {
         data: data,
       });
       console.log(result);
+      router.push({ path: "/course/list" });
     },
-
-    // async getAllCourse() {
-    //   let result = await axios({
-    //     method: "put",
-    //     url: "http://localhost:3000/course/list/" + id,
-    //     data: data,
-    //   });
-    // },
 
     async getCourseData() {
       const route = useRoute();

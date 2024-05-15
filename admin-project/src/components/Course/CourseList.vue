@@ -3,6 +3,13 @@
     <head> </head>
     <body>
       <!-- <h1>User List</h1>  -->
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter Course"
+        v-model="listQuery.name"
+        @input="getCourseList()"
+      />
 
       <table class="table">
         <caption>
@@ -63,6 +70,9 @@ export default {
   data() {
     return {
       courseList: {},
+      listQuery: {
+        name: "",
+      },
     };
   },
 
@@ -83,6 +93,7 @@ export default {
         let result = await axios({
           method: "get",
           url: "http://localhost:3000/course/list",
+          params: this.listQuery,
         });
         console.log(result, "message");
         this.courseList = result.data.data;
@@ -98,7 +109,7 @@ export default {
           url: "http://localhost:3000/course/delete/" + id,
         });
         console.log(result, " Deleted");
-        this.getCourseListList();
+        this.getCourseList();
       } catch (err) {
         console.log(err);
       }

@@ -18,7 +18,13 @@ const createCourse = async (req, res) => {
 
 const getAllCourse = async (req, res) => {
   try {
-    let courses = await Course.find({});
+    // let courses = await Course.find({});
+    // console.log(req.query.name, "req.query.name");
+    // let name = req.query.name;
+
+    let courses = await Course.find({
+      courseFullName: { $regex: new RegExp(req.query.name.toLowerCase(), "i") },
+    });
     // let courses = await Course.find({}, "_id, courseFullName");
 
     res.status(200).send({
