@@ -8,6 +8,12 @@ router.post("/branch/create", (req, res) => {
 router.get("/branch/list", (req, res) => {
   BranchController.getAllBranch(req, res);
 });
+router.get("/branch/byCourse", (req, res) => {
+  BranchController.getAllBranchByCourse(req, res);
+});
+router.get("/branch/get", (req, res) => {
+  BranchController.getBranchs(req, res);
+});
 
 router.delete("/branch/delete/:id", (req, res) => {
   BranchController.deleteBranch(req, res);

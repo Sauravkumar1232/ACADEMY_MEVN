@@ -4,12 +4,16 @@ const cors = require("cors");
 const app = express();
 const courseRouter = require("./router/CourseRouter");
 const branchRouter = require("./router/BranchRouter");
+const subjectRouter = require("./router/SubjectRouter");
+const subjectMappingRouter = require("./router/SubjectMappingRouter");
 
 app.use(express.json());
 app.use(cors());
 
 app.use(courseRouter);
 app.use(branchRouter);
+app.use(subjectRouter);
+app.use(subjectMappingRouter);
 
 app.listen(3000, () => {
   console.log("Server started at 3000");

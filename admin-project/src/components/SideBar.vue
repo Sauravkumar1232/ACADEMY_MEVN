@@ -44,6 +44,41 @@
       >
         <div class="link-container">Branch List</div>
       </router-link>
+      <router-link
+        to="/subject/create"
+        active-class="active"
+        exact
+        class="side-btn"
+      >
+        <div class="link-container">Subject Create</div>
+      </router-link>
+
+      <router-link
+        to="/subject/list"
+        active-class="active"
+        exact
+        class="side-btn"
+      >
+        <div class="link-container">Subject List</div>
+      </router-link>
+
+      <router-link
+        to="/subjectMapping/Create"
+        active-class="active"
+        exact
+        class="side-btn"
+      >
+        <div class="link-container">Subject Mapping Create</div>
+      </router-link>
+
+      <router-link
+        to="/subjectMapping/list"
+        active-class="active"
+        exact
+        class="side-btn"
+      >
+        <div class="link-container">Subject Mapping List</div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -57,17 +92,18 @@ export default {};
   color: white;
   font-size: 24px;
   margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 .menu-items {
   display: flex;
   flex-direction: column;
-  margin-top: 40px;
+  margin-top: -50px;
   margin-left: 6px;
 }
 
 .menu-items > * {
-  margin-top: 60px;
+  margin-top: 20px;
 }
 
 .side-btn {

@@ -9,14 +9,14 @@
       />
     </head>
     <body>
-      <h1>Branch List</h1>
-      <input
+      <h1>Subject Mapping List</h1>
+      <!-- <input
         type="text"
         class="form-control"
         placeholder="Enter Branch"
         v-model="listQuery.name"
         @input="getBranchList()"
-      />
+      /> -->
       <table class="table">
         <caption>
           <!-- Branch List -->
@@ -24,22 +24,27 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Branch Code</th>
-            <th>BranchFullName</th>
-            <th>BranchNickName</th>
+            <th>Subject</th>
+            <th>Course</th>
+            <th>Branch</th>
             <!-- <th>courseDuration</th> -->
-            <th>course full name</th>
+            <th>Year</th>
             <!-- <th>affilatedUniversity</th> -->
-            <th>Action</th>
+            <th>Semester</th>
           </tr>
         </thead>
         <tbody class="tbody">
-          <tr v-for="(course, index) in branchList" :key="index">
+          <tr
+            v-for="(subjectMapping, index) in subjectMappingList"
+            :key="index"
+          >
             <th scope="row">{{ index + 1 }}</th>
-            <td>{{ course.branchCode }}</td>
-            <td>{{ course.branchFullName }}</td>
-            <td>{{ course.branchNickName }}</td>
-            <td>{{ course.course.courseFullName }}</td>
+            <td>{{ subjectMapping.subject.subjectName }}</td>
+            <td>{{ subjectMapping.course.courseFullName }}</td>
+            <td>{{ subjectMapping.branch.branchFullName }}</td>
+            <td>{{ subjectMapping.year }}</td>
+            <td>{{ subjectMapping.semester }}</td>
+
             <!-- <td>{{ course.courseMode }}</td> -->
             <!-- <td>{{ course.affilatedUniversity }}</td> -->
             <!-- <td>{{ course.courseCodeCode }}</td> -->
@@ -88,19 +93,21 @@ export default {
 
   data() {
     return {
-      branchList: {},
+      subjectMappingList: [],
       courseFullName: "",
-      listQuery: {
-        name: "",
-        page: 1,
-        limit: 2,
-      },
-      nop: 1,
+      branchFullName: "",
+      subjectName: "",
+      //   listQuery: {
+      //     name: "",
+      //     page: 1,
+      //     limit: 2,
+      //   },
+      //   nop: 1,
     };
   },
 
   created() {
-    this.getBranchList();
+    this.getSubjectMappingList();
   },
 
   methods: {
@@ -110,16 +117,17 @@ export default {
 
       // alert(id);
     },
-    async getBranchList() {
+    async getSubjectMappingList() {
       try {
         // alert("ok..");
         let result = await axios({
           method: "get",
-          url: "http://localhost:3000/branch/list",
+          url: "http://localhost:3000/subjectMapping/list",
           params: this.listQuery,
         });
         console.log(result, "message");
-        this.branchList = result.data.data;
+        this.subjectMappingList = result.data.data;
+
         this.nop = Math.ceil(result.data.totalcount / this.listQuery.limit);
       } catch (err) {
         console.log(err);
@@ -163,9 +171,9 @@ caption {
   width: 100%;
 
   /* display: table-row-group;
-    vertical-align: middle;
-    border-color: inherit;
-    text-align: center; */
+      vertical-align: middle;
+      border-color: inherit;
+      text-align: center; */
 }
 thead {
   background-color: aqua;

@@ -41,6 +41,34 @@ const routes = [
         name: "CourseEdit",
         component: () => import("./components/Course/CourseEdit"),
       },
+      {
+        path: "/subject/Create",
+        component: () =>
+          import(
+            /* webpackChunkName: "Profile" */ "./components/Subject/SubjectCreate.vue"
+          ),
+      },
+      {
+        path: "/subject/list",
+        component: () =>
+          import(
+            /* webpackChunkName: "Settings" */ "./components/Subject/SubjectList.vue"
+          ),
+      },
+      {
+        path: "/subjectMapping/Create",
+        component: () =>
+          import(
+            /* webpackChunkName: "Profile" */ "./components/Subject/SubjectMappingCreate.vue"
+          ),
+      },
+      {
+        path: "/subjectMapping/list",
+        component: () =>
+          import(
+            /* webpackChunkName: "Settings" */ "./components/Subject/SubjectMappingList.vue"
+          ),
+      },
     ],
   },
 

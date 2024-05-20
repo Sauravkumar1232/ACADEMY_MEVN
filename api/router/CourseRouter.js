@@ -9,6 +9,10 @@ router.get("/course/list", (req, res) => {
   CourseController.getAllCourse(req, res);
 });
 
+router.get("/course/All", (req, res) => {
+  CourseController.getAll(req, res);
+});
+
 router.delete("/course/delete/:id", (req, res) => {
   CourseController.deleteCourse(req, res);
 });

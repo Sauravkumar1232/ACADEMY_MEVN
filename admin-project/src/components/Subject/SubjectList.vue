@@ -9,37 +9,35 @@
       />
     </head>
     <body>
-      <h1>Branch List</h1>
+      <h1>subject List</h1>
       <input
         type="text"
         class="form-control"
-        placeholder="Enter Branch"
+        placeholder="Enter subject"
         v-model="listQuery.name"
-        @input="getBranchList()"
+        @input="getSubjectList()"
       />
       <table class="table">
         <caption>
-          <!-- Branch List -->
+          <!-- subject List -->
         </caption>
         <thead>
           <tr>
             <th>#</th>
-            <th>Branch Code</th>
-            <th>BranchFullName</th>
-            <th>BranchNickName</th>
-            <!-- <th>courseDuration</th> -->
-            <th>course full name</th>
-            <!-- <th>affilatedUniversity</th> -->
+            <th>Subject Code</th>
+            <th>Subject Name</th>
+            <th>Subject Type</th>
+            <th>Subject Status</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody class="tbody">
-          <tr v-for="(course, index) in branchList" :key="index">
+          <tr v-for="(subject, index) in subjectList" :key="index">
             <th scope="row">{{ index + 1 }}</th>
-            <td>{{ course.branchCode }}</td>
-            <td>{{ course.branchFullName }}</td>
-            <td>{{ course.branchNickName }}</td>
-            <td>{{ course.course.courseFullName }}</td>
+            <td>{{ subject.subjectCode }}</td>
+            <td>{{ subject.subjectName }}</td>
+            <td>{{ subject.subjectType }}</td>
+            <td>{{ subject.subjectStatus }}</td>
             <!-- <td>{{ course.courseMode }}</td> -->
             <!-- <td>{{ course.affilatedUniversity }}</td> -->
             <!-- <td>{{ course.courseCodeCode }}</td> -->
@@ -49,20 +47,20 @@
                 class="edit"
                 type="submit"
                 value="Edit"
-                @click="openEditPage(course._id)"
+                @click="openEditPage(subject._id)"
               />
               <input
                 class="delete"
                 type="submit"
                 value="Delete"
-                @click="deleteBranch(course._id)"
+                @click="deleteSubject(subject._id)"
               />
             </td>
           </tr>
         </tbody>
       </table>
 
-      <nav aria-label="...">
+      <!-- <nav aria-label="...">
         <ul class="pagination pagination-lg">
           <li
             v-for="n in nop"
@@ -73,7 +71,7 @@
             {{ n }}
           </li>
         </ul>
-      </nav>
+      </nav> -->
     </body>
   </html>
 </template>
@@ -84,11 +82,11 @@ import router from "@/routes";
 import axios from "axios";
 
 export default {
-  name: "BranchList",
+  name: "subjectList",
 
   data() {
     return {
-      branchList: {},
+      subjectList: {},
       courseFullName: "",
       listQuery: {
         name: "",
@@ -100,44 +98,44 @@ export default {
   },
 
   created() {
-    this.getBranchList();
+    this.getSubjectList();
   },
 
   methods: {
     async openEditPage(id) {
       console.log(id);
-      router.push({ path: "/branchEdit/" + id });
+      router.push({ path: "/subjectEdit/" + id });
 
       // alert(id);
     },
-    async getBranchList() {
+    async getSubjectList() {
       try {
         // alert("ok..");
         let result = await axios({
           method: "get",
-          url: "http://localhost:3000/branch/list",
+          url: "http://localhost:3000/subject/list",
           params: this.listQuery,
         });
         console.log(result, "message");
-        this.branchList = result.data.data;
-        this.nop = Math.ceil(result.data.totalcount / this.listQuery.limit);
+        this.subjectList = result.data.data;
+        // this.nop = Math.ceil(result.data.totalcount / this.listQuery.limit);
       } catch (err) {
         console.log(err);
       }
     },
     getData(n) {
       this.listQuery.page = n;
-      this.getBranchList();
+      this.getsubjectList();
     },
-    async deleteBranch(id) {
+    async deleteSubject(id) {
       try {
         console.log(id);
         let result = await axios({
           method: "delete",
-          url: "http://localhost:3000/branch/delete/" + id,
+          url: "http://localhost:3000/subject/delete/" + id,
         });
         console.log(result, " Deleted");
-        this.getBranchList();
+        this.getsubjectList();
       } catch (err) {
         console.log(err);
       }
@@ -163,9 +161,9 @@ caption {
   width: 100%;
 
   /* display: table-row-group;
-    vertical-align: middle;
-    border-color: inherit;
-    text-align: center; */
+      vertical-align: middle;
+      border-color: inherit;
+      text-align: center; */
 }
 thead {
   background-color: aqua;

@@ -1,3 +1,5 @@
+// const { Query } = require("mongoose");
+const Q = require("q");
 const Branch = require("../model/BranchSchema");
 
 const createBranch = async (req, res) => {
@@ -63,19 +65,48 @@ const getBranchForEdit = async (req, res) => {
   }
 };
 
+const getAllBranchByCourse = async (req, res) => {
+  try {
+    let courseId = req.query.courseId;
+    console.log(courseId);
+    let branches = await Branch.find({ course: courseId });
+    console.log(branches);
+
+    res.status(200).send({
+      message: "branches by course id  fetched",
+      data: branches,
+    });
+  } catch (err) {}
+};
+
 const getAllBranch = async (req, res) => {
   try {
     // console.log(req.query.name, "req.query.name");
     let name = req.query.name;
-    // let branches = await Branch.find({}).populate("course");
-    let branches = await Branch.find({
-      branchFullName: { $regex: new RegExp(name.toLowerCase(), "i") },
-    }).populate("course");
-    console.log(branches, "branches");
-    res.status(200).send({
-      message: "Branch fetched",
-      data: branches,
+    let offSet = req.query.page ? (req.query.page - 1) * req.query.limit : 0;
+    let limit = parseInt(req.query.limit ? req.query.limit : 2);
+    console.log("offSet", offSet, "limit", limit);
+    Q.all([
+      Branch.countDocuments().exec(),
+      Branch.find({
+        branchFullName: { $regex: new RegExp(name.toLowerCase(), "i") },
+      })
+        .populate("course")
+        .skip(parseInt(offSet))
+        .limit(parseInt(limit))
+        .exec(),
+    ]).then(function (branches) {
+      res.status(200).send({
+        message: "Branch fetched",
+        data: branches[1],
+        totalcount: branches[0],
+      });
     });
+    // let branches = await Branch.find({}).populate("course");
+    // let branches = await Branch.find({
+    //   branchFullName: { $regex: new RegExp(name.toLowerCase(), "i") },
+    // }).populate("course");
+    // console.log(branches, "branches");
   } catch (err) {
     console.log(err.message, "msg");
   }
@@ -103,4 +134,5 @@ module.exports = {
   getBranchForEdit,
   branchEdit,
   // branchEdit,
+  getAllBranchByCourse,
 };
