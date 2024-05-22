@@ -31,4 +31,24 @@ const getAllSubjectMapping = async (req, res) => {
     });
   } catch (err) {}
 };
-module.exports = { createSubjectMapping, getAllSubjectMapping };
+
+const deleteSubjectMapping = async (req, res) => {
+  try {
+    await SubjectMappingSchema.deleteOne({ _id: req.params.id });
+    res.status(200).send({
+      message: "Subject Mapping deleted",
+      data: "",
+    });
+  } catch (err) {
+    res.status(500).send({
+      success: true,
+      message: "Error ",
+      err,
+    });
+  }
+};
+module.exports = {
+  createSubjectMapping,
+  getAllSubjectMapping,
+  deleteSubjectMapping,
+};

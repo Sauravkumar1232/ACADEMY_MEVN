@@ -8,11 +8,11 @@ router.post("/subjectMapping/create", (req, res) => {
 router.get("/subjectMapping/list", (req, res) => {
   SubjectMappingController.getAllSubjectMapping(req, res);
 });
-router.get("/SubjectMapping/get", (req, res) => {
+router.get("/subjectMapping/get", (req, res) => {
   SubjectMappingController.getSubjectMappings(req, res);
 });
 
-router.delete("/SubjectMapping/delete/:id", (req, res) => {
+router.delete("/subjectMapping/delete/:id", (req, res) => {
   SubjectMappingController.deleteSubjectMapping(req, res);
 });
 router.get("/SubjectMapping/forEdit/:id", (req, res) => {

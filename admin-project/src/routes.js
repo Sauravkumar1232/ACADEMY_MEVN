@@ -112,6 +112,11 @@ const routes = [
     name: "BranchCreate",
     component: () => import("./components/Branch/BranchCreate"),
   },
+  {
+    path: "/book/create",
+    name: "BookCreate",
+    component: () => import("./components/CreateBook.vue"),
+  },
 ];
 
 const router = createRouter({

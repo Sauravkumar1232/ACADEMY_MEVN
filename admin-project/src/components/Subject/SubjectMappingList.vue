@@ -27,10 +27,9 @@
             <th>Subject</th>
             <th>Course</th>
             <th>Branch</th>
-            <!-- <th>courseDuration</th> -->
             <th>Year</th>
-            <!-- <th>affilatedUniversity</th> -->
             <th>Semester</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody class="tbody">
@@ -45,22 +44,18 @@
             <td>{{ subjectMapping.year }}</td>
             <td>{{ subjectMapping.semester }}</td>
 
-            <!-- <td>{{ course.courseMode }}</td> -->
-            <!-- <td>{{ course.affilatedUniversity }}</td> -->
-            <!-- <td>{{ course.courseCodeCode }}</td> -->
-
             <td>
               <input
                 class="edit"
                 type="submit"
                 value="Edit"
-                @click="openEditPage(course._id)"
+                @click="openEditPage(subjectMapping._id)"
               />
               <input
                 class="delete"
                 type="submit"
                 value="Delete"
-                @click="deleteBranch(course._id)"
+                @click="deletesubjectMapping(subjectMapping._id)"
               />
             </td>
           </tr>
@@ -137,15 +132,15 @@ export default {
       this.listQuery.page = n;
       this.getBranchList();
     },
-    async deleteBranch(id) {
+    async deletesubjectMapping(id) {
       try {
         console.log(id);
         let result = await axios({
           method: "delete",
-          url: "http://localhost:3000/branch/delete/" + id,
+          url: "http://localhost:3000/subjectMapping/delete/" + id,
         });
         console.log(result, " Deleted");
-        this.getBranchList();
+        this.getSubjectMappingList();
       } catch (err) {
         console.log(err);
       }

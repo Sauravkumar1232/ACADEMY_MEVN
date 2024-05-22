@@ -6,9 +6,12 @@ const courseRouter = require("./router/CourseRouter");
 const branchRouter = require("./router/BranchRouter");
 const subjectRouter = require("./router/SubjectRouter");
 const subjectMappingRouter = require("./router/SubjectMappingRouter");
+const bookRouter = require("./router/BookRouter");
 
 app.use(express.json());
 app.use(cors());
+
+app.use(bookRouter);
 
 app.use(courseRouter);
 app.use(branchRouter);
